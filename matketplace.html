@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+
+</head>
+<style>
+    body {
+        background-color: darkcyan;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .button-container {
+        margin-bottom: 20px;
+    }
+
+    button {
+        background-color: #008CBA;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    button:hover {
+        background-color: #005684;
+    }
+
+    #outputContainer {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        list-style: none;
+        padding: 0;
+    }
+
+    .nft-card {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+        cursor: pointer;
+        width: 250px;
+    }
+
+    .nft-card:hover {
+        transform: scale(1.05);
+    }
+
+    .nft-card img {
+        width: 100%;
+        height: auto;
+        border-bottom: 1px solid #ccc;
+    }
+
+    form {
+        margin-top: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+    }
+
+    button[type="button"] {
+        background-color: #4CAF50;
+    }
+
+    button[type="button"]:hover {
+        background-color: #45a049;
+    }
+
+    a {
+        text-decoration: none;
+        color: white;
+    }
+
+    a:hover {
+        text-decoration: underline;
+        color: #ffeb3b;
+    }
+</style>
+
+<body>
+    <button onclick="connectWallet()">create</button>
+    <button onclick="getmatketplace()">get</button>
+    <button onclick="list()">list</button>
+    <button onclick="readall()">read</button>
+    <form id="transferNFTForm">
+        <label for="nftAddress">Địa Chỉ NFT:</label>
+        <input type="text" id="nftAddress" placeholder="Nhập địa chỉ NFT">
+
+        <label for="destinationAddress">Địa Chỉ Đích:</label>
+        <input type="text" id="to_address" placeholder="Nhập địa chỉ đích">
+
+        <button type="button" onclick="transfer()">Chuyển NFT</button>
+        <ul id="outputContainer"></ul>
+        <button><a href="exp.html">giang</a></button>
+    </form>
+    <script>
+        let publicKey;
+        window.addEventListener('load', (event) => {
+            // Gọi hàm readall khi tất cả các tài nguyên đã được tải xong (bao gồm cả hình ảnh, stylesheets, và scripts)
+            readall();
+        });
+
+        const toTransaction = (encodedTransaction) => solanaWeb3.Transaction.from(Uint8Array.from(atob(encodedTransaction), c => c.charCodeAt(0)));
+        const connectWallet = async () => {
+            await window.phantom.solana.connect();
+
+            publicKey = window.phantom.solana.publicKey.toBase58(); //[1,1,1,1]
+            console.log(publicKey);
+            // matketplace();
+            readall();
+        }
+        const SHYFT_API_KEY = "FvtQ-DsN9H3YDIYw";
+
+        const matketplace = async () => {
+            var myHeaders = new Headers();
+            myHeaders.append("x-api-key", SHYFT_API_KEY);
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "network": "devnet",
+                "transaction_fee": 10,
+                "currency_address": "7TfMNSZ2UHznQBmKF3QJG7VpiF4kKR6Pc9UaFQVfy5zs",
+                "fee_payer": publicKey,
+                "fee_recipient": "7ebYrzXfZiU3FC3PfcLDpr9gHd1N7RDmKQ3aK3FuqRDK",
+                "creator_wallet": publicKey
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("https://api.shyft.to/sol/v1/marketplace/create", requestOptions)
+                // .then(async response => {
+                //     let res = await response.json();
+                //     let transaction = toTransaction(res.result.encoded_transaction);
+
+                //     const signedTransaction = await window.phantom.solana.signTransaction(transaction);
+                //     const connection = new solanaWeb3.Connection("https://api.devnet.solana.com");
+                //     const signature = await connection.sendRawTransaction(signedTransaction.serialize());
+
+                //     console.log("CREATE MATKETPLACE CONFIRMED!!!");
+                // })
+                .then(response => response.text())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
+        }
+        const getmatketplace = async () => {
+            var myHeaders = new Headers();
+            myHeaders.append("x-api-key", SHYFT_API_KEY);
+
+            var requestOptions = {
+                method: 'GET',
+                headers: myHeaders,
+                redirect: 'follow'
+            };
+
+            fetch("https://api.shyft.to/sol/v1/marketplace/my_markets?network=devnet", requestOptions)
+                .then(response => response.text())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
+        }
+        const list = async () => {
+            var myHeaders = new Headers();
+            myHeaders.append("x-api-key", SHYFT_API_KEY);
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "network": "devnet",
+                "marketplace_address": "DBRY6z5Y3BWME1WqDuxUoJdkAiDwyV7DbzLBFfJG3ZLy",
+                "nft_address": "6BRmAi6xBVn9vj3D4rUVdYuwYGfUUQst8LfAcX3MHTGP",
+                "price": 200,
+                "seller_wallet": publicKey
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("https://api.shyft.to/sol/v1/marketplace/list", requestOptions)
+                .then(response => response.text())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
+        }
+
+        const transfer = async (mintValue) => {
+            var myHeaders = new Headers();
+            myHeaders.append("x-api-key", SHYFT_API_KEY);
+
+            var raw = JSON.stringify({
+                "network": "devnet",
+                "token_address": mintValue,
+                "from_address": publicKey,
+                "to_address": "7ebYrzXfZiU3FC3PfcLDpr9gHd1N7RDmKQ3aK3FuqRDK",
+                "transfer_authority": true,
+                "fee_payer": publicKey
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("https://api.shyft.to/sol/v1/nft/transfer_detach", requestOptions)
+                .then(async response => {
+                    let res = await response.json();
+                    let transaction = toTransaction(res.result.encoded_transaction);
+
+                    const signedTransaction = await window.phantom.solana.signTransaction(transaction);
+                    const connection = new solanaWeb3.Connection("https://api.devnet.solana.com");
+                    const signature = await connection.sendRawTransaction(signedTransaction.serialize());
+
+                    console.log("TRANFER CONFIRMED!!!");
+                })
+                .catch(error => console.log('error', error));
+
+        }
+        const readall = async () => {
+            var myHeaders = new Headers();
+            myHeaders.append("x-api-key", SHYFT_API_KEY);
+
+            var requestOptions = {
+                method: 'GET',
+                headers: myHeaders,
+                redirect: 'follow'
+            };
+
+            fetch("https://api.shyft.to/sol/v1/nft/read_all?network=devnet&address=" + publicKey, requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                    // Xử lý dữ liệu ở đây
+                    console.log(data.result); // In ra console để kiểm tra
+                    // Gọi hàm để xuất dữ liệu ra HTML
+                    displayDataInHtml(data.result);
+                })
+
+                .catch(error => console.log('error', error));
+        }
+        function displayDataInHtml(resultData) {
+            // Lấy phần tử HTML để hiển thị dữ liệu
+            const outputContainer = document.getElementById('outputContainer');
+
+            // Xóa nội dung hiện tại của container (nếu có)
+            outputContainer.innerHTML = '';
+
+            // Lặp qua từng mục trong resultData và thêm nó vào container
+            resultData.forEach(item => {
+                // Tạo một phần tử li
+                const listItem = document.createElement('li');
+                // Thêm lớp CSS cho card
+                listItem.classList.add('nft-card');
+
+                // Tạo một phần tử img
+                const imageElement = document.createElement('img');
+                // Gán nguồn của ảnh từ item.image_uri
+                imageElement.src = item.image_uri;
+                // Thêm lớp CSS nếu cần thiết
+                imageElement.classList.add('nft-image'); // Thêm lớp CSS "nft-image" (nếu có)
+
+                // Tạo nội dung cho phần tử li, bao gồm cả phần tử img
+                listItem.innerHTML = `
+            ${item.name} - ${item.symbol} - ${item.description} - ${item.mint}
+        `;
+
+                // Tạo một phần tử nút mua
+                const buyButton = document.createElement('button');
+                buyButton.textContent = 'Mua'; // Đặt nội dung của nút mua
+                buyButton.addEventListener('click', function () {
+                    event.preventDefault();
+                    // Gọi hàm transfer khi nút mua được nhấn
+                    transfer(item.mint); // Truyền dữ liệu cần thiết từ item hoặc từ resultData
+                });
+                // Thêm phần tử nút mua vào phần tử li
+                listItem.appendChild(buyButton);
+
+                // Thêm phần tử img vào phần tử li
+                listItem.appendChild(imageElement);
+
+                // Thêm phần tử li vào container
+                outputContainer.appendChild(listItem);
+            });
+        }
+
+
+
+    </script>
+</body>
+
+
+</html>
