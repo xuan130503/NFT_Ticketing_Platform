@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/trangchu.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+</head>
+<style>
+    .nft-image {
+        width: 190px;
+        height: 250px;
+    }
+
+    .nft-card-container {
+        margin-left: 30px;
+    }
+    .navbar-nav .nav-link,
+    .navbar-brand {
+        color: white !important;
+        /* Đổi màu chữ thành màu trắng */ 
+    }
+
+     /* Màu chữ khi hover / */
+    .navbar-nav .nav-link:hover {
+        color: yellow !important;
+    }
+
+    /* / Màu chữ khi active / */
+    .navbar-nav .nav-link.active {
+        color: red !important;
+    }
+</style>
+
+<body>
+    <!-- menu -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto ">
+                <li class="nav-item ">
+                    <a class="nav-link" href="trangchu.html">Home <span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="infor.html">MY COLLECTION</a>
+                </li>
+            </ul>
+            <form class="form-inline">
+                <button class="btn btn-outline-success" onclick="connectWallet()" type="button">Connect Wallet</button>
+            </form>
+        </div>
+    </nav>
+    <!-- banner -->
+    <section class="container">
+        <img src="../image/banner2.jpg" style="width: 100%; border-radius: 80px 0px; height: 500px;" alt="">
+    </section>
+    <!-- sản phẩm mới -->
+    <section class="container">
+        <div id="title-section">NEW EVENTS OF THE MONTH</div>
+        <hr>
+        <div id="dssp">
+            <ul id="outputContainer" class="row"></ul>
+            <div id="btn-xemthem">
+                <button type="button" class="btn btn-outline-dark">Xem tất cả</button>
+            </div>
+        </div>
+    </section>
+    <!-- sản phẩm bán chạy -->
+
+    <section class="container">
+        <div id="title-section">EVENTS HOT</div>
+        <hr>
+        <div class="row" id="dssp">
+            <ul id="outputContainer" class="row"></ul>
+            <div id="btn-xemthem">
+                <button type="button" class="btn btn-outline-dark">Xem tất cả</button>
+            </div>
+        </div>
+    </section>
+    <!-- banner 2 -->
+    <section class="container">
+        <img src="../image/banner2.jpg" style="width: 100%; border-radius: 80px 0px; height: 500px;" alt="">
+    </section>
+    <!-- gallery -->
+    <section class="container">
+        <div id="title-section">EVENTS IN THE PAST</div>
+        <hr>
+        <div class="row">
+            <div class="col-3">
+                <img id="img-items" src="../image/banner1.jpg" alt="">
+
+            </div>
+            <div class="col-3">
+                <img id="img-items" src="../image/banner2.jpg" alt="">
+
+            </div>
+            <div class="col-3">
+                <img id="img-items" src="../image/banner3.jpg" alt="">
+
+            </div>
+            <div class="col-3">
+                <img id="img-items" src="../image/banner1.jpg" alt="">
+
+            </div>
+        </div>
+
+    </section>
+    <hr>
+    <!-- footer -->
+    <footer class="container" style="margin-top: 70px;">
+        <div class="row">
+            <div class="col-3">
+                <img src="../image/z4805893268304_4da797551877695a26a2914211ce8e30.jpg" style="width: 100%;" alt="">
+                <p>Công ty Cổ phần Dự Kim với số đăng ký kinh doanh: 0105777650</p>
+                <p>Địa chỉ đăng ký: Tổ dân phố Tháp, P.Đại Mỗ, Q.Nam Từ Liêm, TP.Hà Nội, Việt Nam</p>
+                <p>Số điện thoại: 0243 205 2222/ 090 589 8683</p>
+                <p>Email: cskh@ivy.com.vn</p>
+
+            </div>
+            <div class="col-2">
+                <h3>Giới thiệu</h3>
+                <p>Về Fashion Thread</p>
+                <p>Tuyển dụng</p>
+                <p>Hệ thống của hàng</p>
+            </div>
+            <div class="col-3">
+                <h3>Dịch vụ khách hàng</h3>
+                <p>Chính sách điều khoản</p>
+                <p>Hướng dẫn mua hàng</p>
+                <p>Chính sách thanh toán</p>
+                <p>Chính sách đổi trả</p>
+                <p>Chính sách bảo hành</p>
+                <p>Chính sách giao hành vận chuyển</p>
+                <p>Chính sách thẻ thành viên</p>
+                <p>Hệ thống cửa hàng</p>
+                <p>Q&A</p>
+            </div>
+            <div class="col-2">
+                <h3>Liên hệ</h3>
+                <p>Hotline</p>
+                <p>Email</p>
+                <p>Live Chat</p>
+                <p>Messenger</p>
+                <p>Liên hệ</p>
+            </div>
+            <div class="col-2" style="border-radius: 50px 10px; border: solid; height: 300px;">
+                <h4 style="margin-top: 40px;">Nhận thông tin chương trình</h4>
+                <input style="margin-top: 20px;" type="email" placeholder="Nhập địa chỉ email">
+                <button style="margin-top: 20px; border-radius: 20px 2px; float: right;" type="button"
+                    class="btn btn-outline-dark">Dark</button>
+            </div>
+        </div>
+    </footer>
+</body>
+
+
+
+<script>
+    let publicKey;
+    publicKey1 = "7ebYrzXfZiU3FC3PfcLDpr9gHd1N7RDmKQ3aK3FuqRDK";
+    const SHYFT_API_KEY = "FvtQ-DsN9H3YDIYw";
+    const toTransaction = (encodedTransaction) => solanaWeb3.Transaction.from(Uint8Array.from(atob(encodedTransaction), c => c.charCodeAt(0)));
+    (async () => {
+        await window.phantom.solana.connect();
+        publicKey = window.phantom.solana.publicKey.toBase58(); //[1,1,1,1]
+        console.log(publicKey);
+        readall();
+    })();
+    const connectWallet = async () => {
+        await window.phantom.solana.connect();
+
+        publicKey = window.phantom.solana.publicKey.toBase58(); //[1,1,1,1]
+        console.log(publicKey);
+        // matketplace();
+        readall();
+    }
+
+    const matketplace = async () => {
+        var myHeaders = new Headers();
+        myHeaders.append("x-api-key", SHYFT_API_KEY);
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+            "network": "devnet",
+            "transaction_fee": 10,
+            "currency_address": "7TfMNSZ2UHznQBmKF3QJG7VpiF4kKR6Pc9UaFQVfy5zs",
+            "fee_payer": publicKey,
+            "fee_recipient": "7ebYrzXfZiU3FC3PfcLDpr9gHd1N7RDmKQ3aK3FuqRDK",
+            "creator_wallet": publicKey
+        });
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch("https://api.shyft.to/sol/v1/marketplace/create", requestOptions)
+            // .then(async response => {
+            //     let res = await response.json();
+            //     let transaction = toTransaction(res.result.encoded_transaction);
+
+            //     const signedTransaction = await window.phantom.solana.signTransaction(transaction);
+            //     const connection = new solanaWeb3.Connection("https://api.devnet.solana.com");
+            //     const signature = await connection.sendRawTransaction(signedTransaction.serialize());
+
+            //     console.log("CREATE MATKETPLACE CONFIRMED!!!");
+            // })
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+    }
+    const getmatketplace = async () => {
+        var myHeaders = new Headers();
+        myHeaders.append("x-api-key", SHYFT_API_KEY);
+
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        fetch("https://api.shyft.to/sol/v1/marketplace/my_markets?network=devnet", requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+    }
+    const list = async () => {
+        var myHeaders = new Headers();
+        myHeaders.append("x-api-key", SHYFT_API_KEY);
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+            "network": "devnet",
+            "marketplace_address": "DBRY6z5Y3BWME1WqDuxUoJdkAiDwyV7DbzLBFfJG3ZLy",
+            "nft_address": "6BRmAi6xBVn9vj3D4rUVdYuwYGfUUQst8LfAcX3MHTGP",
+            "price": 200,
+            "seller_wallet": publicKey
+        });
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch("https://api.shyft.to/sol/v1/marketplace/list", requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+    }
+
+    const transfer = async () => {
+        var myHeaders = new Headers();
+        myHeaders.append("x-api-key", SHYFT_API_KEY);
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+            "network": "devnet",
+            "token_address": "ZoSLx7t1vUrKUWUv1hv4w756iW91moMqr6jpioATSCN",
+            "from_address": publicKey,
+            "to_address": "7ebYrzXfZiU3FC3PfcLDpr9gHd1N7RDmKQ3aK3FuqRDK",
+            "transfer_authority": true,
+            "fee_payer": publicKey
+        });
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch("https://api.shyft.to/sol/v1/nft/transfer_detach", requestOptions)
+            .then(async response => {
+                let res = await response.json();
+                let transaction = toTransaction(res.result.encoded_transaction);
+
+                const signedTransaction = await window.phantom.solana.signTransaction(transaction);
+                const connection = new solanaWeb3.Connection("https://api.devnet.solana.com");
+                const signature = await connection.sendRawTransaction(signedTransaction.serialize());
+
+                console.log("TRANSACTION CONFIRMED!!!");
+            })
+            .catch(error => console.log('error', error));
+
+    }
+    const readall = async () => {
+        var myHeaders = new Headers();
+        myHeaders.append("x-api-key", SHYFT_API_KEY);
+
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        fetch("https://api.shyft.to/sol/v1/nft/read_all?network=devnet&address=" + publicKey1, requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                // Xử lý dữ liệu ở đây
+                console.log(data.result); // In ra console để kiểm tra
+                // Gọi hàm để xuất dữ liệu ra HTML
+                displayDataInHtml(data.result);
+            })
+
+            .catch(error => console.log('error', error));
+    }
+    function displayDataInHtml(resultData) {
+        // Lấy phần tử HTML để hiển thị dữ liệu
+        const outputContainer = document.getElementById('outputContainer');
+
+        // Xóa nội dung hiện tại của container (nếu có)
+        outputContainer.innerHTML = '';
+
+        // Lặp qua từng mục trong resultData và thêm nó vào container
+        resultData.forEach(item => {
+            // Tạo một div làm container cho card
+            const cardContainer = document.createElement('div');
+            cardContainer.classList.add('col-2', 'nft-card-container');
+
+            // Tạo một phần tử div để hiển thị thông tin như "MỚI"
+            const infoTicket = document.createElement('div');
+            infoTicket.classList.add('info-ticket');
+            infoTicket.textContent = 'MỚI'; // Thay bằng thông tin thực tế
+
+            // Tạo một phần tử img
+            const imageElement = document.createElement('img');
+            imageElement.src = item.image_uri;
+            imageElement.alt = item.name;
+            imageElement.classList.add('img-items', 'nft-image'); // Thêm lớp CSS "nft-image" (nếu có)
+
+            // Tạo một phần tử p cho biểu tượng trái tim
+            const heartIcon = document.createElement('p');
+            heartIcon.style.fontSize = '20px';
+            heartIcon.innerHTML = '<i class="bi bi-heart" style="float: right;"></i>';
+
+            // Tạo một phần tử p cho tên NFT
+            const itemName = document.createElement('p');
+            itemName.id = 'items-name';
+            itemName.textContent = item.name;
+
+            // Tạo một phần tử p cho giá
+            const itemPrice = document.createElement('p');
+            itemPrice.id = 'items-price';
+            itemPrice.textContent = item.price; // Thay bằng thông tin giá thực tế
+
+            // Tạo một nút mua
+            const buyButton = document.createElement('button');
+            buyButton.id = 'items-btn';
+            buyButton.type = 'button';
+            buyButton.classList.add('btn', 'btn-outline-dark');
+            buyButton.innerHTML = '<i class="bi bi-cart2"></i>';
+            buyButton.addEventListener('click', function () {
+                event.preventDefault();
+                // Truyền dữ liệu cần thiết từ item hoặc từ resultData
+                transfer(item.mint);
+                // Chuyển hướng đến trang chitietsanpham.html
+                window.location.href = 'sanpham.html';
+            });
+
+            // Thêm các phần tử vào card container
+            cardContainer.appendChild(infoTicket);
+            cardContainer.appendChild(imageElement);
+            cardContainer.appendChild(heartIcon);
+            cardContainer.appendChild(itemName);
+            cardContainer.appendChild(itemPrice);
+            cardContainer.appendChild(buyButton);
+
+            // Thêm card container vào container chính
+            outputContainer.appendChild(cardContainer);
+
+        });
+    }
+
+
+
+</script>
+
+</html>
