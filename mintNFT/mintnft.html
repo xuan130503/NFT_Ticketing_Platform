@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+</head>
+<style>
+    .navbar-nav .nav-link,
+    .navbar-brand {
+        color: white !important;
+        /* Đổi màu chữ thành màu trắng */
+    }
+
+    /* Màu chữ khi hover */
+    .navbar-nav .nav-link:hover {
+        color: yellow !important;
+        /* Đổi màu chữ khi hover */
+    }
+
+    /* Màu chữ khi active */
+    .navbar-nav .nav-link.active {
+        color: red !important;
+        /* Đổi màu chữ khi active */
+    }
+
+
+
+    #drop-area {
+        width: 400px;
+        height: 500px;
+        padding: 30px;
+        background-color: #ffffff;
+        text-align: center;
+        border-radius: 20px;
+    }
+
+    #img_view {
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        border: 2px dashed #bbb5ff;
+        background-color: #f7f8ff;
+    }
+
+    #drop-area {
+        width: 300px;
+        height: 320px;
+        padding: 30px;
+        background: #fff;
+        text-align: center;
+        border-radius: 20px;
+        margin-left: 100px;
+    }
+
+    #img-view {
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        border: 2px dashed #bbb5ff;
+        background-color: #f7f8ff;
+        background-position: center;
+        background-size: cover;
+    }
+
+    #img-view img {
+        width: 100px;
+        margin-top: 25px;
+    }
+
+    #img-view span {
+        display: block;
+        font-size: 12px;
+        color: #777;
+        margin-top: 15px;
+    }
+</style>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto ">
+                <li class="nav-item ">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+            </ul>
+            <form class="form-inline">
+                <button class="btn btn-outline-success" onclick="connectWallet()" type="button">Connect Wallet</button>
+            </form>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">Tạo Vé NFT</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <form:form modelAttribute="venft">
+                            <div class="form-group mb-3">
+                                <label>Tên Vé</label>
+                                <input id="tenve" value="" type="text" class="form-control">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label>Số Lượng</label>
+                                <input id="soluong" value="" type="text" class="form-control">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label>Mô Tả</label>
+                                <textarea id="mota" value="" class="form-control" rows="3"></textarea>
+                            </div>
+
+                        </form:form>
+                    </div>
+                    <div class="col-6">
+                        <form>
+                            <label for="input-file" id="drop-area">
+                                <input type="file" accept="image/*" id="input-file" hidden>
+                                <div id="img-view">
+                                    <img src="508-icon.png" alt="">
+                                    <p>Drag and drop or click here <br>to upload image</p>
+                                    <span>Uload any images from desktop</span>
+                                </div>
+                            </label>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-footer"> <button class="btn btn-primary" onclick="mintNft()">Mint NFT</button></div>
+        </div>
+    </div>
+
+    <script>
+        const dropArea = document.getElementById("drop-area");
+        const inputFile = document.getElementById("input-file");
+        const imageView = document.getElementById("img-view");
+
+        inputFile.addEventListener("change", uploadImage);
+
+        function uploadImage(){
+            let imgLink = URL.createObjectURL(inputFile.files[0]);
+            imageView.style.backgroundImage = `url(${imgLink})`;
+            imageView.textContent = "";
+            imageView.style.border = 0;
+        }
+    </script>
+
+    <script>
+        let publicKey;
+
+        //1: Auto connect
+        (async () => {
+            await window.phantom.solana.connect();
+            publicKey = window.phantom.solana.publicKey.toBase58(); //[1,1,1,1]
+            sessionStorage.setItem('publicKey', publicKey);
+            console.log(publicKey);
+        })();
+
+
+        //2: Manual connect
+        const connectWallet = async () => {
+            await window.phantom.solana.connect();
+
+            publicKey = window.phantom.solana.publicKey.toBase58(); //[1,1,1,1]
+            sessionStorage.setItem('publicKey', publicKey);
+            console.log(publicKey);
+            alert("kết nối ví thành công");
+        }
+
+        const SHYFT_API_KEY = "FvtQ-DsN9H3YDIYw";
+        const toTransaction = (encodedTransaction) => solanaWeb3.Transaction.from(Uint8Array.from(atob(encodedTransaction), c => c.charCodeAt(0)));
+        //--creatmachain
+        const mintNft = async () => {
+            var myHeaders = new Headers();
+            myHeaders.append("x-api-key", SHYFT_API_KEY);
+
+            const fileInput = document.querySelector("#input-file");
+            const publicKey = sessionStorage.getItem('publicKey');
+            const tenve = document.getElementById('tenve').value;
+            const mota = document.getElementById('mota').value;
+            const soluong = document.getElementById('soluong').value;
+
+
+            var formdata = new FormData();
+            formdata.append("network", "devnet");
+            formdata.append("wallet", publicKey);
+            formdata.append("name", tenve);
+            formdata.append("symbol", "Ticket");
+            formdata.append("description", mota);
+            formdata.append("attributes", '[{"trait_type":"dev power","value":"over 900"}]');
+            formdata.append("external_url", "https://shyft.to");
+            formdata.append("max_supply", soluong);
+            formdata.append("royalty", "1");
+            formdata.append("file", fileInput.files[0]);
+            formdata.append("data", fileInput.files[0]);
+            formdata.append("receiver", publicKey);
+            formdata.append('service_charge', `{ "receiver": "7TfMNSZ2UHznQBmKF3QJG7VpiF4kKR6Pc9UaFQVfy5zs",  "amount": 0.01}`);
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: formdata,
+                redirect: 'follow'
+            };
+
+            fetch("https://api.shyft.to/sol/v1/nft/create_detach", requestOptions)
+                .then(async response => {
+                    let res = await response.json();
+                    let transaction = toTransaction(res.result.encoded_transaction);
+
+                    const signedTransaction = await window.phantom.solana.signTransaction(transaction);
+                    const connection = new solanaWeb3.Connection("https://api.devnet.solana.com");
+                    const signature = await connection.sendRawTransaction(signedTransaction.serialize());
+
+                    console.log("TRANSACTION CONFIRMED!!!");
+                })
+                .catch(error => console.log('error', error));
+            console.log(fileInput)
+            console.log(publicKey)
+            console.log(tenve)
+            console.log(mota)
+            console.log(soluong)
+        }
+
+    </script>
+</body>
+
+</html>
