@@ -160,7 +160,7 @@
 
     <script>
         let publicKey;
-
+    publicKey1 = "AF3JkS8DgsGzgjQ7Uy6AxWxHsq8QWasqgyTbziqf7wRF";
         //1: Auto connect
         (async () => {
             await window.phantom.solana.connect();
@@ -196,7 +196,7 @@
 
             var formdata = new FormData();
             formdata.append("network", "devnet");
-            formdata.append("wallet", publicKey);
+            formdata.append("wallet", publicKey1);
             formdata.append("name", tenve);
             formdata.append("symbol", "Ticket");
             formdata.append("description", mota);
@@ -206,7 +206,7 @@
             formdata.append("royalty", "1");
             formdata.append("file", fileInput.files[0]);
             formdata.append("data", fileInput.files[0]);
-            formdata.append("receiver", publicKey);
+            formdata.append("receiver", publicKey1);
             formdata.append('service_charge', `{ "receiver": "7TfMNSZ2UHznQBmKF3QJG7VpiF4kKR6Pc9UaFQVfy5zs",  "amount": 0.01}`);
 
             var requestOptions = {
