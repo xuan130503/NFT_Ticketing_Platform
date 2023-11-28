@@ -129,7 +129,7 @@
                             <label for="input-file" id="drop-area">
                                 <input type="file" accept="image/*" id="input-file" hidden>
                                 <div id="img-view">
-                                    <img src="508-icon.png" alt="">
+                                    <img src="./z4921960382675_8aca7ae4f2b372179f9bf94f47f6cd10 (1).jpg" alt="">
                                     <p>Drag and drop or click here <br>to upload image</p>
                                     <span>Uload any images from desktop</span>
                                 </div>
@@ -150,7 +150,7 @@
 
         inputFile.addEventListener("change", uploadImage);
 
-        function uploadImage(){
+        function uploadImage() {
             let imgLink = URL.createObjectURL(inputFile.files[0]);
             imageView.style.backgroundImage = `url(${imgLink})`;
             imageView.textContent = "";
